@@ -20,4 +20,5 @@
 }
 .ul a:hover {
   background-color: rgb(160, 160, 160);
+  cursor: pointer;
 }/*# sourceMappingURL=header.module.css.map */

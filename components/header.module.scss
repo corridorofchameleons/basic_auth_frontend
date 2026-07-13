@@ -19,6 +19,7 @@
     background-color: grey;
 
     &:hover {
-        background-color: rgb(160, 160, 160)
+        background-color: rgb(160, 160, 160);
+        cursor: pointer;
     }
 }

@@ -1,0 +1,23 @@
+.nav {
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.ul a {
+  color: black;
+  text-decoration: none;
+  padding: 5px 15px;
+  background-color: grey;
+}
+.ul a:hover {
+  background-color: rgb(160, 160, 160);
+}/*# sourceMappingURL=header.module.css.map */

@@ -5,17 +5,29 @@ import classes from './header.module.css'
 import { useState } from "react"
 import LoginModal from "./login-modal"
 
+function getCookie() {
+    fetch('http://localhost:8000/debug_cookie',
+        {
+            method: 'POST',
+            credentials: 'include'
+        }
+    )
+    .then(resp => {
+        console.log('ok')}
+    )
+}
+
 export default function Header() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     return <header className={classes.header}>
         <nav className={classes.nav}>
             <ul className={classes.ul}>
-                <div>
+                {/* <div>
                 <Link
                     href='/'
                 >Main</Link>
-                </div>
+                </div> */}
                 <div>
                 <a
                     onClick={() => setIsModalOpen(true)}

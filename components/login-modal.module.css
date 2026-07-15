@@ -1,1 +1,16 @@
-/*# sourceMappingURL=login-modal.module.css.map */
+.heading {
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  gap: 4px;
+  min-width: 300px;
+}
+
+.form label {
+  display: flex;
+  justify-content: space-between;
+}/*# sourceMappingURL=login-modal.module.css.map */

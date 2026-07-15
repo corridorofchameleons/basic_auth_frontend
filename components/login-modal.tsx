@@ -1,44 +1,48 @@
-'use client';
-
-import { useState, SubmitEvent, Dispatch, SetStateAction } from 'react';
 import classes from './login-modal.module.css'
+import { useActionState } from 'react';
+import { handleSubmit } from '../actions/auth';
+
+const initialState = {
+    error: null,
+}
 
 interface ModalProps {
     isModalOpen: boolean,
     closeModal: () => void
 }
 
+function SubmitButton({pending}: {pending: boolean}) {
+    return (
+      <button type="submit" disabled={pending}>
+        {pending ? 'Входим...' : 'Войти'}
+      </button>
+    )
+}
+
 export default function LoginModal({
     isModalOpen,
     closeModal   
 }: ModalProps) {
-    console.log(isModalOpen)
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e: SubmitEvent) => {
-    e.preventDefault();
-    
-    console.log('Попытка входа:', email); 
-    // Здесь позже будет логика отправки запроса к /auth/login
-  };
+    const [state, formAction, pending] = useActionState(
+        handleSubmit, 
+        initialState
+    )
 
-//   if (!isModalOpen) return null
-
-  return (
+    return (
     <dialog open={isModalOpen}>
       <div>
-        <h2>Login</h2>
+        <h2 className={classes.heading}>Login</h2>
         
-        <form onSubmit={handleSubmit}>
+        <form action={formAction}>
+            <div className={classes.form}>
           <label>
             Email:
             <input 
               type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
               name='email'
               required 
+              defaultValue={state?.fields?.email || ''} 
             />
           </label>
           
@@ -46,14 +50,15 @@ export default function LoginModal({
             Пароль:
             <input 
               type="password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)}
               name='password' 
               required 
+              defaultValue={state?.fields?.email || ''} 
             />
           </label>
+          </div>
           
-          <button type="submit">Войти</button>
+        <SubmitButton pending={pending}/>
+        {state?.error && <p>{state?.error}</p>}
         </form>
 
         <button onClick={closeModal}>

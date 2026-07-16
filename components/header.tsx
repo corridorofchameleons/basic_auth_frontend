@@ -4,21 +4,23 @@ import Link from "next/link"
 import classes from './header.module.css'
 import { useState } from "react"
 import LoginModal from "./login-modal"
+import RegModal from "./reg-modal"
 
-function getCookie() {
-    fetch('http://localhost:8000/debug_cookie',
-        {
-            method: 'POST',
-            credentials: 'include'
-        }
-    )
-    .then(resp => {
-        console.log('ok')}
-    )
-}
+// function getCookie() {
+//     fetch('http://localhost:8000/debug_cookie',
+//         {
+//             method: 'POST',
+//             credentials: 'include'
+//         }
+//     )
+//     .then(resp => {
+//         console.log('ok')}
+//     )
+// }
 
 export default function Header() {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
+    const [isRegModalOpen, setIsRegModalOpen] = useState<boolean>(false)
 
     return <header className={classes.header}>
         <nav className={classes.nav}>
@@ -30,14 +32,24 @@ export default function Header() {
                 </div> */}
                 <div>
                 <a
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => setIsLoginModalOpen(true)}
                 >Login</a>
+                </div>
+                <div>
+                <a
+                    onClick={() => setIsRegModalOpen(true)}
+                >Register</a>
                 </div>
 
             </ul>
-            {isModalOpen && <LoginModal 
-            isModalOpen={isModalOpen}
-            closeModal={() => setIsModalOpen(false)}
+            {isLoginModalOpen && <LoginModal 
+            isModalOpen={isLoginModalOpen}
+            closeModal={() => setIsLoginModalOpen(false)}
+            />}
+
+            {isRegModalOpen && <RegModal 
+                isModalOpen={isRegModalOpen}
+                closeModal={() => setIsRegModalOpen(false)}
             />}
         </nav>
 

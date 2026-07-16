@@ -1,6 +1,6 @@
-import classes from './login-modal.module.css'
+import classes from './reg-modal.module.css'
 import { useActionState } from 'react';
-import { handleLoginSubmit } from '../actions/auth';
+import { handleRegSubmit } from '../actions/auth';
 
 const initialState = {
     error: null,
@@ -14,25 +14,25 @@ interface ModalProps {
 function SubmitButton({pending}: {pending: boolean}) {
     return (
       <button type="submit" disabled={pending}>
-        {pending ? 'Входим...' : 'Войти'}
+        {pending ? 'Делаем...' : 'Рег'}
       </button>
     )
 }
 
-export default function LoginModal({
+export default function RegModal({
     isModalOpen,
     closeModal   
 }: ModalProps) {
 
     const [state, formAction, pending] = useActionState(
-        handleLoginSubmit, 
+        handleRegSubmit, 
         initialState
     )
 
     return (
     <dialog open={isModalOpen}>
       <div>
-        <h2 className={classes.heading}>Login</h2>
+        <h2 className={classes.heading}>Register</h2>
         
         <form action={formAction}>
             <div className={classes.form}>

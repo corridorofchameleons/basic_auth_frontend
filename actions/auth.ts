@@ -1,4 +1,4 @@
-import { logIn } from "../utils/http"
+import { logIn, registerUser } from "../utils/http"
 
 // interface loginData {
 //     email: FormDataEntryValue | null,
@@ -33,13 +33,38 @@ import { logIn } from "../utils/http"
 //         }
 // }
 
-export async function handleSubmit(prevState: object, formData: FormData) {
+export async function handleLoginSubmit(prevState: object, formData: FormData) {
     const email = formData.get('email')
     const password = formData.get('password')
     
     const data = {email, password}
 
     const resp = await logIn(data)
+
+    if (resp?.status !== 'ok') {   
+        return {
+            error: 'wrong data',
+            fields: {email, password}
+        }
+    }       
+}
+
+
+export async function handleRegSubmit(prevState: object, formData: FormData) {
+    const email = formData.get('email')
+    const password = formData.get('password')
+    
+    const data = {email, password}
+
+    const resp = await registerUser(data)
+
+    if (resp?.status !== 'ok') {   
+        return {
+            error: 'wrong data',
+            fields: {email, password}
+        }
+    }       
+}
 
     // try {
     //     const response = await fetch('http://localhost:8000/auth/login',
@@ -66,12 +91,3 @@ export async function handleSubmit(prevState: object, formData: FormData) {
     //             status: 'error'
     //         }
     //     }
-
-
-    if (resp?.status !== 'ok') {   
-        return {
-            error: 'wrong data',
-            fields: {email, password}
-        }
-    }       
-}

@@ -1,10 +1,12 @@
 'use client'
 
-import Link from "next/link"
 import classes from './header.module.css'
 import { useState } from "react"
 import LoginModal from "./login-modal"
 import RegModal from "./reg-modal"
+import { useUser } from '../providers/UserProvider'
+import Link from 'next/link'
+
 
 // function getCookie() {
 //     fetch('http://localhost:8000/debug_cookie',
@@ -22,14 +24,12 @@ export default function Header() {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false)
     const [isRegModalOpen, setIsRegModalOpen] = useState<boolean>(false)
 
+    const user = useUser()
+
     return <header className={classes.header}>
         <nav className={classes.nav}>
             <ul className={classes.ul}>
-                {/* <div>
-                <Link
-                    href='/'
-                >Main</Link>
-                </div> */}
+            {!user && <>
                 <div>
                 <a
                     onClick={() => setIsLoginModalOpen(true)}
@@ -40,11 +40,22 @@ export default function Header() {
                     onClick={() => setIsRegModalOpen(true)}
                 >Register</a>
                 </div>
+            </>}
+
+            {user && <>
+                <div>
+                <Link
+                href="/me"
+                >{user.email}</Link>
+                </div>
+            </>}
 
             </ul>
             {isLoginModalOpen && <LoginModal 
             isModalOpen={isLoginModalOpen}
-            closeModal={() => setIsLoginModalOpen(false)}
+            closeModal={() => {
+                setIsLoginModalOpen(false)
+            }}
             />}
 
             {isRegModalOpen && <RegModal 

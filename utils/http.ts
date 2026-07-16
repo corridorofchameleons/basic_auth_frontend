@@ -1,3 +1,5 @@
+// import { cookies } from "next/headers"
+
 interface credentialsData {
     email: FormDataEntryValue | null,
     password: FormDataEntryValue | null
@@ -12,6 +14,31 @@ export async function logIn(data: credentialsData) {
                 headers: {
                 'Content-Type': 'application/json'
                 },
+                credentials: 'include'
+            }
+        )
+        if (!response.ok) {   
+            return {
+                status: 'error',
+            }
+        } else {
+            return {
+                status: 'ok'
+            }
+        }}
+        catch {
+            return {
+                status: 'error'
+            }
+        }
+}
+
+
+export async function logOut() {
+    try {
+        const response = await fetch('http://localhost:8000/auth/logout',
+            {
+                method: 'POST',
                 credentials: 'include'
             }
         )
@@ -56,6 +83,36 @@ export async function registerUser(data: credentialsData) {
         catch {
             return {
                 status: 'error'
+            }
+        }
+}
+
+
+export async function getUser(cookie: string) {
+    try {
+        const response = await fetch('http://localhost:8000/users/me',
+            {
+                method: 'GET',
+                headers: { Cookie: cookie },
+                credentials: 'include'
+            }
+        )
+        if (!response.ok) {   
+            return {
+                status: 'error',
+                user: null
+            }
+        } else {
+            const user = await response.json()
+            return {
+                status: 'ok',
+                user: user
+            }
+        }}
+        catch {
+            return {
+                status: 'error',
+                user: null
             }
         }
 }

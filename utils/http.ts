@@ -23,7 +23,8 @@ export async function logIn(data: credentialsData) {
             }
         } else {
             return {
-                status: 'ok'
+                status: 'ok',
+                data: await response.json()
             }
         }}
         catch {

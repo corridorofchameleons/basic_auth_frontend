@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation"
-import { logIn, registerUser } from "../utils/http"
+import { logIn, registerUser } from "../../utils/http"
 
 
 export async function handleLoginSubmit(prevState: object, formData: FormData) {
+
     const email = formData.get('email')
     const password = formData.get('password')
     
@@ -16,8 +17,11 @@ export async function handleLoginSubmit(prevState: object, formData: FormData) {
             fields: {email, password}
         }
     }  
-    
-    redirect('/')
+
+    return {
+        error: false,
+        data: resp
+    }
 }
 
 

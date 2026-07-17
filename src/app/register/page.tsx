@@ -1,6 +1,9 @@
-import classes from './reg-modal.module.css'
+'use client'
+
+import classes from './page.module.css'
 import { useActionState } from 'react';
-import { handleRegSubmit } from '../actions/auth';
+import { handleRegSubmit } from '../../actions/auth';
+import { redirect } from 'next/navigation';
 
 const initialState = {
     error: null,
@@ -20,8 +23,8 @@ function SubmitButton({pending}: {pending: boolean}) {
 }
 
 export default function RegModal({
-    isModalOpen,
-    closeModal   
+    // isModalOpen,
+    // closeModal   
 }: ModalProps) {
 
     const [state, formAction, pending] = useActionState(
@@ -30,7 +33,7 @@ export default function RegModal({
     )
 
     return (
-    <dialog open={isModalOpen}>
+    <dialog open={true}>
       <div>
         <h2 className={classes.heading}>Register</h2>
         
@@ -61,7 +64,7 @@ export default function RegModal({
         {state?.error && <p>{state?.error}</p>}
         </form>
 
-        <button onClick={closeModal}>
+        <button onClick={() => redirect('/')}>
           Закрыть
         </button>
       </div>

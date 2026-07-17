@@ -1,6 +1,11 @@
-import classes from './login-modal.module.css'
-import { useActionState } from 'react';
-import { handleLoginSubmit } from '../actions/auth';
+'use client'
+
+import classes from './page.module.css'
+import { useActionState, useEffect, useTransition } from 'react';
+import { handleLoginSubmit } from '@/actions/auth';
+import { redirect, useRouter } from 'next/navigation';
+import { useUser } from '../../../providers/UserProvider';
+import { decodeJWT } from '../../../lib/jwt';
 
 const initialState = {
     error: null,
@@ -20,17 +25,28 @@ function SubmitButton({pending}: {pending: boolean}) {
 }
 
 export default function LoginModal({
-    isModalOpen,
-    closeModal   
+    // isModalOpen,
+    // closeModal   
 }: ModalProps) {
+    const {setUserData} = useUser()
 
     const [state, formAction, pending] = useActionState(
         handleLoginSubmit, 
         initialState
     )
 
+    useEffect(() => {
+      if (state?.error === false) {
+        const token = state?.data.data.access_token
+        const userData = decodeJWT(token)
+        setUserData({ ...userData })
+        redirect('/')  
+      }
+    }, [state])
+
+
     return (
-    <dialog open={isModalOpen}>
+    <dialog open={true}>
       <div>
         <h2 className={classes.heading}>Login</h2>
         
@@ -61,7 +77,7 @@ export default function LoginModal({
         {state?.error && <p>{state?.error}</p>}
         </form>
 
-        <button onClick={closeModal}>
+        <button onClick={() => redirect('/')}>
           Закрыть
         </button>
       </div>

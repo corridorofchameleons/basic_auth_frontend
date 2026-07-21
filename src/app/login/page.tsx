@@ -39,7 +39,11 @@ export default function LoginModal({
       if (state?.error === false) {
         const token = state?.data.data.access_token
         const userData = decodeJWT(token)
-        setUserData({ ...userData })
+        setUserData({ 
+          id: userData.sub,
+          email: userData.email,
+          role: userData.role
+        })
         redirect('/')  
       }
     }, [state])

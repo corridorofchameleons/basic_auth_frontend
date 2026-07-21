@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "../../components/header";
-import { getUserData } from "../../utils/cookies";
 import { UserProvider } from "../../providers/UserProvider";
 
 export const metadata: Metadata = {
@@ -14,25 +13,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  let user = null
-
-  const userData = await getUserData()
-  if (userData) {
-    user = {
-      id: userData.sub,
-      email: userData.email,
-      role: userData.role
-    }
-  }
-
   return (
     <html lang="en">
       <body>
-        <UserProvider user={user}>
+        <UserProvider>
           <Header />
           <main>
           {children}
-        </main>
+          </main>
         </UserProvider>
 
       </body>

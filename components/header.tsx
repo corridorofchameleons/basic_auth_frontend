@@ -7,8 +7,11 @@ import { redirect } from 'next/navigation'
 
 
 export default function Header() {    
-    const { userData: user } = useUser() 
+    const { userData: user, userLoading } = useUser() 
 
+    if (userLoading && !user) {
+        return <div>Loading...</div>
+    }
 
     return <header className={classes.header}>
         <nav className={classes.nav}>

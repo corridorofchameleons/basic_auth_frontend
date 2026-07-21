@@ -6,14 +6,15 @@ import { cookies } from 'next/headers'
 export default async function Me() {
     const cookiesData = (await cookies()).toString()
 
-    const userData = await getUser(cookiesData)
-    const user = userData.user
+    // const userData = await getUser(cookiesData)
+    // const user = userData.user
 
-    console.log(user)
-
-    if (!user) return <h2>No user found</h2>
+    // if (!user) return <h2>No user found</h2>
     
     return <div className={classes.container}>
-        <MeData user={user}/>
+        <MeData 
+        // user={user} 
+        cookiesData={cookiesData}
+        />
     </div>
 }

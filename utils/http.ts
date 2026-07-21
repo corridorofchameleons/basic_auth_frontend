@@ -34,6 +34,26 @@ export async function logIn(data: credentialsData) {
         }
 }
 
+export async function refreshToken() {
+    try {
+        const resp = await fetch(
+        'http://localhost:8000/auth/refresh-token', 
+        { 
+            method: 'POST',
+            credentials: 'include' 
+        })
+
+        if (resp.status == 200) {
+            const data = await resp.json()
+            return data
+        } else if (resp.status == 401) {
+            return null
+        }            
+    } catch {
+        return null
+    }
+}
+
 
 export async function logOut() {
     try {
@@ -114,6 +134,33 @@ export async function getUser(cookie: string) {
             return {
                 status: 'error',
                 user: null
+            }
+        }
+}
+
+
+export async function deleteUser(userId: string, cookie: string) {
+    console.log(userId)
+    try {
+        const response = await fetch(`http://localhost:8000/users/delete/${userId}`,
+            {
+                method: 'DELETE',
+                headers: { Cookie: cookie },
+                credentials: 'include'
+            }
+        )
+        if (!response.ok) {   
+            return {
+                status: 'error',
+            }
+        } else {
+            return {
+                status: 'ok',
+            }
+        }}
+        catch {
+            return {
+                status: 'error',
             }
         }
 }

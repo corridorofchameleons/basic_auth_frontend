@@ -13,5 +13,5 @@ export async function getUserData() {
     }
 
     const userData = decodeJWT(accessToken)
-    return userData    
+    return userData  
 }

@@ -1,7 +1,7 @@
 'use server'
 
 import { cookies } from "next/headers"
-import { decodeJWT } from "../lib/jwt"
+import { decodeJWT } from "./jwt"
 
 export async function getUserData() {
 

@@ -4,8 +4,8 @@ import classes from './page.module.css'
 import { useActionState, useEffect, useTransition } from 'react';
 import { handleLoginSubmit } from '@/actions/auth';
 import { redirect, useRouter } from 'next/navigation';
-import { useUser } from '../../../providers/UserProvider';
-import { decodeJWT } from '../../../lib/jwt';
+import { useUser } from '../../providers/UserProvider';
+import { decodeJWT } from '../../../utils/jwt';
 
 const initialState = {
     error: null,

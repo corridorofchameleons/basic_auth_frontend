@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation"
 import { useUser } from "../providers/UserProvider"
-import { deleteUser, logOut } from "../utils/http"
+import { deleteUser, logOut } from "../../utils/http"
 
 export default function MeData({cookiesData}) {
     const {userData: user, setUserData, userLoading} = useUser()

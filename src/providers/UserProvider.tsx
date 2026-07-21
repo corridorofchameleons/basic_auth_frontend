@@ -1,8 +1,8 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { refreshToken } from '../utils/http';
-import { decodeJWT } from '../lib/jwt';
+import { refreshToken } from '../../utils/http';
+import { decodeJWT } from '../../utils/jwt';
 
 const UserContext = createContext(null);
 

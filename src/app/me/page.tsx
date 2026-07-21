@@ -1,4 +1,4 @@
-import MeData from '../../../components/Me'
+import MeData from '../../components/Me'
 import { getUser } from '../../../utils/http'
 import classes from './page.module.css'
 import { cookies } from 'next/headers'

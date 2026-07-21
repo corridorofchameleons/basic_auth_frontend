@@ -32,7 +32,7 @@ export function UserProvider({
         } 
 
     useEffect(() => {
-        setUserLoading(true)
+        // setUserLoading(true)
         getUserData()
 
         const tmr = setInterval(

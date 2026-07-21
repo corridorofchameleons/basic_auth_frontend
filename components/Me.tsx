@@ -14,7 +14,6 @@ export default function MeData({cookiesData}) {
     }
 
     async function onDelete() {
-        console.log(user)
         if (user) {
             await deleteUser(user.id, cookiesData)
         }
